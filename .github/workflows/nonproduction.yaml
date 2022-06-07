@@ -25,13 +25,7 @@ jobs:
           node-versions: 14
       - name: build site
         run: |
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
+          npm install
           npm run build
       - name: deploy files to S3Bucket
         run: aws s3 cp public s3://${{ env.BUCKET_NAME }}/ --recursive --acl public-read
